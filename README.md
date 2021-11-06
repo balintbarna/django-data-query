@@ -8,13 +8,17 @@ Installing dependencies with Pip:
 pip install -r requirements.txt
 ```
 
-Running the project:
+Running the project from the dataquery directory:
 ```
-cd dataquery
 python manage.py runserver
 ```
 
 To run it on port 8080 use:
 ```
 python manage.py runserver 8080
+```
+
+To run unit tests
+```
+python manage.py test
 ```
