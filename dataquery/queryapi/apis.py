@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import requests as req
+import json
 
 
 def index(request):
@@ -13,8 +14,20 @@ def index(request):
 def get_data():
     data_url = "https://raw.githubusercontent.com/mark-dessain-maersk/interview-question/v1/data.json"
     r = req.get(data_url)
-    print(r)
     return r.text
 
 def search(request):
-    pass
+    attribute = request.GET.get('attribute', '')
+    value = request.GET.get('value', '')
+    if not attribute or not value:
+        print("search query:\n{}:{}".format(attribute, value))
+        return HttpResponse(status=400)
+    data_parsed = json.loads(get_data())
+    if not data_parsed:
+        print("parsed data:\n{}".format(data_parsed))
+        return HttpResponse(status=500)
+    try:
+        filtered = [x for x in data_parsed if str(value).lower() in str(x[attribute]).lower()]
+        return HttpResponse(json.dumps(filtered))
+    except:
+        return HttpResponse(status=500)
