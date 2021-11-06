@@ -1,6 +1,6 @@
 # django-data-query
 
-This project is a solution to an [interview test question](https://github.com/mark-dessain-maersk/interview-question/tree/v1)
+This project is a solution to an [interview test question](https://github.com/mark-dessain-maersk/interview-question/tree/v1). Django was chosen for this project because I have not used it before and it was a fun way to learn. Unit tests are included for the search API.
 
 Requires Python 3
 Installing dependencies with Pip:
