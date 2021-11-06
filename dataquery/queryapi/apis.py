@@ -11,12 +11,14 @@ def index(request):
     data = "data:<br>{}".format(get_data())
     return HttpResponse("<html>{}<br>{}</html>".format(examples, data))
 
+
 def get_data():
     data_url = "https://raw.githubusercontent.com/mark-dessain-maersk/interview-question/v1/data.json"
     r = req.get(data_url)
     return r.text
 
-def search(request):
+
+def search_request(request):
     attribute = request.GET.get('attribute', '')
     value = request.GET.get('value', '')
     if not attribute or not value:
@@ -27,7 +29,11 @@ def search(request):
         print("parsed data:\n{}".format(data_parsed))
         return HttpResponse(status=500)
     try:
-        filtered = [x for x in data_parsed if str(value).lower() in str(x[attribute]).lower()]
+        filtered = filter_in_data(attribute, value, data_parsed)
         return HttpResponse(json.dumps(filtered))
     except:
         return HttpResponse(status=500)
+
+
+def filter_in_data(attribute, value, data):
+    return [x for x in data if str(value).lower() in str(x[attribute]).lower()]

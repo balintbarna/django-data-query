@@ -4,5 +4,5 @@ from . import apis
 
 urlpatterns = [
     path('', apis.index, name='index'),
-    path('search', apis.search, name='search')
+    path('search', apis.search_request, name='search')
 ]
